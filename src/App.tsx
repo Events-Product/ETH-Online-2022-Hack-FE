@@ -63,12 +63,12 @@ function DynamicExample() {
       <ConnectButton />
       <h1>Chat with your Friends whom you have capured Moments</h1>
       <Chatbox />
-      <button
+      {/* <button
         className="launch-receiver hover-scale"
         onClick={() => launch("0x0cb27e883E207905AD2A94F9B6eF0C7A99223C37")}
       >
         Kraznik.eth
-      </button>
+      </button> */}
       {/* <h1>You can message anyone with an ETH account</h1> */}
       {/* <button
         className="launch-receiver hover-scale"
