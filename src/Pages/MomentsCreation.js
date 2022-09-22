@@ -1,4 +1,5 @@
 import React from "react";
+import { Subscribe } from "../Components/OptInChannel";
 
 const MomentsCreation = () => {
   return (
@@ -16,7 +17,14 @@ const MomentsCreation = () => {
         <input type="file" />
       </form>
 
-      <button> View your Connections</button>
+
+
+      <a href="/dynamic">
+        <button className="launch-receiver hover-scale">
+          {" "}
+          View your Connections
+        </button>
+      </a>
 
 
     </>

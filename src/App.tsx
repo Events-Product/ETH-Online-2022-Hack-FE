@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Routes, Route, Link } from "react-router-dom";
 import MomentsCreation from "./Pages/MomentsCreation";
 import Chatbox from "./Components/Chatbox";
+import axios from "axios";
+import { useAccount } from "wagmi";
+import {Subscribe} from "./Components/OptInChannel"
 
 function App() {
   return (
@@ -15,16 +18,13 @@ function App() {
   );
 }
 
-
-function Moments(){
-  return(
+function Moments() {
+  return (
     <>
-    <MomentsCreation />
+      <MomentsCreation />
     </>
-  )
+  );
 }
-
-
 
 function BasicExample() {
   const launch = useLaunch();
@@ -32,8 +32,6 @@ function BasicExample() {
 
   return (
     <div className="full-flex-centered">
-
-    
       <ConnectButton />
       {isOpen || (
         <button
@@ -46,35 +44,39 @@ function BasicExample() {
       {isOpen && (
         <div className="receiver-is-open">Receiver Window is Open</div>
       )}
-  
-      <Window />
 
+      <Window />
     </div>
   );
 }
 
 function DynamicExample() {
   const launch = useLaunch();
+  const { address } = useAccount();
 
   return (
     <div className="full-flex-centered">
-      <h1 className="header"></h1>
+      <h1 className="header">{address}</h1>
 
-      <ConnectButton />
+      <ConnectButton
+        accountStatus="address"
+        showBalance={false}
+        chainStatus="none"
+      ></ConnectButton>
+
       <h1>Chat with your Friends whom you have capured Moments</h1>
-      <Chatbox />
+      <Chatbox account={address} />
+      <button
+          className="launch-receiver hover-scale"
+          onClick={() => Subscribe(address)}
+        >
+          OPT In
+        </button>
       {/* <button
         className="launch-receiver hover-scale"
         onClick={() => launch("0x0cb27e883E207905AD2A94F9B6eF0C7A99223C37")}
       >
         Kraznik.eth
-      </button> */}
-      {/* <h1>You can message anyone with an ETH account</h1> */}
-      {/* <button
-        className="launch-receiver hover-scale"
-        onClick={() => launch("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045")}
-      >
-        Even Vitalik!
       </button> */}
       <Window />
     </div>

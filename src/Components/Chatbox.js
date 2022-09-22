@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
 import { sendNotification } from "./InviteNotification";
 import { sendTaggedNotification } from "./TaggedNotification";
-
+import axios from "axios";
 const Container = styled.div`
   display: inline-block;
   width: 400px;
@@ -13,21 +13,50 @@ const EPNS = styled.button`
   display: flex;
 `;
 
-const Chatbox = () => {
+const Chatbox = ({account}) => {
   const launch = useLaunch();
   const isOpen = useIsOpen();
+  const [friendsList, setFriendsList] = useState([]);
+
+  const UserWallet = account;
+
+  const wallets = async () => {
+    const url = `https://ethglobalhack.kraznikunderverse.com/getCreated/${UserWallet}`;
+    const { data } = await axios.get(url, {
+      headers: { validate: process.env.REACT_APP_VALIDATE_TOKEN },
+    });
+    console.log(data);
+    // setFriendsList(data?.data?.addresses);
+    setFriendsList(["0x66Dc3BFCD29E24fDDeE7f405c705220E6142e4cD", "jhsbd"]);
+  };
+
+  useEffect(() => {
+    wallets();
+  }, []);
+
   return (
     <Container>
-      <h1>Kraznik.eth</h1>
-      <EPNS className="launch-receiver hover-scale" onClick={sendTaggedNotification}>
-        Invite
-      </EPNS>
-      {/* <EPNS
-        className="launch-receiver hover-scale"
-        onClick={() => launch("0x0cb27e883E207905AD2A94F9B6eF0C7A99223C37")}
-      >
-        Chat
-      </EPNS> */}
+      {friendsList.map((address) => {
+        return (
+          <>
+            <h1>{address}</h1>
+            <EPNS
+              className="launch-receiver hover-scale"
+              onClick={() => sendNotification(address)}
+            >
+              Invite
+            </EPNS>
+            <EPNS
+              className="launch-receiver hover-scale"
+              onClick={() =>
+                launch(address)
+              }
+            >
+              Chat
+            </EPNS>
+          </>
+        );
+      })}
     </Container>
   );
 };

@@ -8,7 +8,7 @@ const PK = `${process.env.REACT_APP_PKEY}`; // channel private key
 const Pkey = `0x${process.env.REACT_APP_PKEY}`;
 const signer = new ethers.Wallet(Pkey);
 
-export const sendNotification = async () => {
+export const sendNotification = async (ReceiptWalletAddress) => {
   try {
 
     console.log("Sending Notifct");
@@ -17,13 +17,13 @@ export const sendNotification = async () => {
       type: 3, // target
       identityType: 2, // direct payload
       notification: {
-        title: `Kraznik.eth Invited you to chat with him/her at XMTP`,
-        body: `Kraznik.eth Invited you to chat with him/her at XMTP`,
+        title: `Kraznik.eth Invited you to chat with him/her at XMTP V1`,
+        body: `Kraznik.eth Invited you to chat with him/her at XMTP V1`,
       },
       payload: {
-        title: `Kraznik.eth Invited you to chat with him/her at XMTP`,
-        body: `Kraznik.eth Invited you to chat with him/her at XMTP`,
-        cta: "",
+        title: `Kraznik.eth Invited you to chat with him/her at XMTP V1`,
+        body: `Kraznik.eth Invited you to chat with him/her at XMTP V1`,
+        cta: "https://www.youtube.com/",
         img: "",
       },
       recipients: `eip155:42:${ReceiptWalletAddress}`, // recipient address
