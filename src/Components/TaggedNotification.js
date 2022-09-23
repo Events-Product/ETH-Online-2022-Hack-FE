@@ -39,5 +39,3 @@ export const sendTaggedNotification = async () => {
     console.error("Error: ", err);
   }
 };
-
-sendTaggedNotification();

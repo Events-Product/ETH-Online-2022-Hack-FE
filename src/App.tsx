@@ -3,11 +3,11 @@ import "./App.css";
 import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Routes, Route, Link } from "react-router-dom";
-import MomentsCreation from "./Pages/MomentsCreation";
-import Chatbox from "./Components/Chatbox";
+import MomentsCreation from "./pages/MomentsCreation";
+import Chatbox from "./components/Chatbox";
 import axios from "axios";
 import { useAccount } from "wagmi";
-import {Subscribe} from "./Components/OptInChannel"
+import {Subscribe} from "./components/OptInChannel"
 
 function App() {
   return (

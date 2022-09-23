@@ -14,7 +14,7 @@ export const Subscribe = async (userWalletAddress) => {
   const { signer } = useAccount();
   try {
     await EpnsAPI.channels.subscribe({
-      signer: _signer,
+      signer,
       channelAddress: "eip155:42:0x10881d13359A14652F0e62a37157e08eF6B46636", // channel address in CAIP
       userAddress: `eip155:42:${userWalletAddress}`, // user address in CAIP
       onSuccess: () => {
