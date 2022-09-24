@@ -3,11 +3,11 @@ import "./App.css";
 import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Routes, Route, Link } from "react-router-dom";
-import MomentsCreation from "./pages/MomentsCreation";
-import Chatbox from "./components/Chatbox";
+import MomentsCreation from "./Pages/MomentsCreation";
+import Chatbox from "./Components/Chatbox";
 import axios from "axios";
 import { useAccount } from "wagmi";
-import {Subscribe} from "./components/OptInChannel"
+// import {Subscribe} from "./Components/OptInChannel"
 
 function App() {
   return (
@@ -68,7 +68,7 @@ function DynamicExample() {
       <Chatbox account={address} />
       <button
           className="launch-receiver hover-scale"
-          onClick={() => Subscribe(address)}
+      
         >
           OPT In
         </button>

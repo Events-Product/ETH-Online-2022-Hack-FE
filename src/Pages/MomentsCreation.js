@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Subscribe } from "../components/OptInChannel";
+// import { Subscribe } from "../components/OptInChannel";
+import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 
 import { config } from "../config/config";
@@ -15,6 +16,16 @@ import { toChecksumAddress } from "ethereum-checksum-address";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import Web3 from "web3";
+
+const Leaderboard = styled.div`
+display:inline-block;
+justify-content: space-around; 
+`
+
+const Text = styled.h1`
+display:inline-block;
+margin: 10px;
+`
 
 const MomentsCreation = () => {
   const navigate = useNavigate();
@@ -318,6 +329,18 @@ const MomentsCreation = () => {
           View your Connections
         </button>
       </a>
+
+
+      <>
+      <Leaderboard>
+        <Text>Rank</Text>
+        <Text>Creator</Text>
+        <Text>Moments </Text>
+        <Text>Moments Captured</Text>
+        <Text>Moments Tagged</Text>
+      </Leaderboard>
+      
+      </>
     </>
   );
 };
