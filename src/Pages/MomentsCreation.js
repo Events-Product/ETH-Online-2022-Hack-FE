@@ -18,16 +18,7 @@ import { toChecksumAddress } from "ethereum-checksum-address";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import Web3 from "web3";
-
-const Leaderboard = styled.div`
-  display: inline-block;
-  justify-content: space-around;
-`;
-
-const Text = styled.h1`
-  display: inline-block;
-  margin: 10px;
-`;
+import Leaderboard from "../components/Leaderboard";
 
 const Container = styled.div`
   background: linear-gradient(86.65deg, #efefef 48.22%, #f5e1f1 106.12%);
@@ -191,7 +182,7 @@ const MomentsCreation = () => {
         </p>
 
         <>
-          <form >
+          <form>
             <h2 className="heading">Title</h2>
             <input
               type="text"
@@ -227,7 +218,9 @@ const MomentsCreation = () => {
                 setWalletAddresses(e.target.value);
               }}
             ></input>
-            <p className="heading">Ex. test.eth, lsd.dao etc. (seprated by comma)</p>
+            <p className="heading">
+              Ex. test.eth, lsd.dao etc. (seprated by comma)
+            </p>
 
             <input
               type="file"
@@ -238,13 +231,12 @@ const MomentsCreation = () => {
             />
             <br />
           </form>
-          <button 
-          className="mint"
+          <button
+            className="mint"
             onClick={() => {
               setPopup(true);
               setError(false);
               setSuccess(false);
-              
             }}
             style={{
               pointerEvents: popup ? "none" : null,
@@ -256,7 +248,7 @@ const MomentsCreation = () => {
           {minting ? <div>Minting...</div> : null}
           {Error ? <div>Got some Error...Please try again</div> : null}
           {success ? (
-            <div              >
+            <div>
               Successfully minted!
               <a
                 target={"_blank"}
@@ -310,11 +302,7 @@ const MomentsCreation = () => {
                   )
                 }
               >
-                {minting ? (
-                  <span>Minting...</span>
-                ) : (
-                  <span>Mint Moment</span>
-                )}
+                {minting ? <span>Minting...</span> : <span>Mint Moment</span>}
               </button>
 
               {minting ? (
@@ -353,17 +341,8 @@ const MomentsCreation = () => {
             View your Connections
           </button>
         </a> */}
-
-        {/* <>
-          <Leaderboard>
-            <Text>Rank</Text>
-            <Text>Creator</Text>
-            <Text>Moments </Text>
-            <Text>Moments Captured</Text>
-            <Text>Moments Tagged</Text>
-          </Leaderboard>
-        </> */}
       </>
+      <Leaderboard />
     </Container>
   );
 };
