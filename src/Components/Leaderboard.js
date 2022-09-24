@@ -27,8 +27,6 @@ const Text1 = styled.div`
 
 const Leaderboard = () => {
   const [listOnCount, setListOnCount] = useState([]);
-  const [listOnCreations, setListOnCreations] = useState([]);
-  const [listOnTags, setListOnTags] = useState([]);
 
   const fetchDataOnCount = async () => {
     const url = `${config.apiBaseUrl}/leaderboardCount`;
