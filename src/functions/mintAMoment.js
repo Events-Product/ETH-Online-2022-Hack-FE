@@ -1,6 +1,7 @@
 import { config } from "../config/config";
 import axios from "axios";
 import { uploadFile } from "./creations";
+import { sendTaggedNotification } from "../components/TaggedNotification";
 
 export const getAccessToken = async (setAccessToken) => {
   try {
@@ -17,6 +18,20 @@ export const retrieveFile = (e, setFile) => {
   console.log("file: ", data);
 
   e.preventDefault();
+};
+
+const postToTableland = async (momentsData) => {
+  var wallets = momentsData?.walletAddresses;
+  const creatorAddress = wallets.shift();
+  const addresses = wallets;
+
+  console.log("creator address: ", creatorAddress);
+  console.log("tagged friends: ", addresses);
+
+  const url = `${config.apiBaseUrl}/ethMoments`;
+  const postData = { addresses, creatorAddress };
+  const { data } = await axios.post(url, postData, config.authOptions);
+  console.log("post to tableland: ", data);
 };
 
 export const mintAMoment = async (
@@ -37,10 +52,12 @@ export const mintAMoment = async (
       var nftTypeId = await uploadFile(file, AccessToken, momentsData);
       setMinting(false);
     }
-    setSuccess(true);
     setNftTypeId(nftTypeId);
 
     // return navigate(`/profile/${}`, { replace: true });
+    await postToTableland(momentsData);
+    await sendTaggedNotification(momentsData.walletAddresses);
+    setSuccess(true);
   } catch (err) {
     setMinting(false);
     setError(true);

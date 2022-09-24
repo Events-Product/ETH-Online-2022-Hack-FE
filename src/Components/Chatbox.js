@@ -13,10 +13,11 @@ const EPNS = styled.button`
   display: flex;
 `;
 
-const Chatbox = ({account}) => {
+const Chatbox = ({ account }) => {
   const launch = useLaunch();
   const isOpen = useIsOpen();
   const [friendsList, setFriendsList] = useState([]);
+  const [taggedFriendsList, setTaggedFriendsList] = useState([]);
 
   const UserWallet = account;
 
@@ -25,39 +26,80 @@ const Chatbox = ({account}) => {
     const { data } = await axios.get(url, {
       headers: { validate: process.env.REACT_APP_VALIDATE_TOKEN },
     });
-    console.log(data);
     // setFriendsList(data?.data?.addresses);
-    setFriendsList(["0x66Dc3BFCD29E24fDDeE7f405c705220E6142e4cD", "jhsbd"]);
+    setFriendsList(data?.data?.addresses);
+    console.log("friends list: ", data?.data?.addresses);
+  };
+
+  const getTaggedFriends = async () => {
+    const url = `https://ethglobalhack.kraznikunderverse.com/getFriends/${UserWallet}`;
+    const { data } = await axios.get(url, {
+      headers: { validate: process.env.REACT_APP_VALIDATE_TOKEN },
+    });
+    console.log("tagged: ", data);
+    // setFriendsList(data?.data?.addresses);
+    setTaggedFriendsList(data?.data?.friends);
+    // console.log("tagged friends list: ", data?.data?.addresses);
   };
 
   useEffect(() => {
-    wallets();
-  }, []);
+    if (account) {
+      wallets();
+      getTaggedFriends();
+    }
+  }, [account]);
 
   return (
-    <Container>
-      {friendsList.map((address) => {
-        return (
-          <>
-            <h1>{address}</h1>
-            <EPNS
-              className="launch-receiver hover-scale"
-              onClick={() => sendNotification(address)}
-            >
-              Invite
-            </EPNS>
-            <EPNS
-              className="launch-receiver hover-scale"
-              onClick={() =>
-                launch(address)
-              }
-            >
-              Chat
-            </EPNS>
-          </>
-        );
-      })}
-    </Container>
+    <>
+      <Container>
+        <div>Friends List</div>
+        {friendsList ? null : <div>Go on and mint with some :D</div>}
+        {friendsList?.map((address) => {
+          return (
+            <>
+              <h1>{address}</h1>
+              <EPNS
+                className="launch-receiver hover-scale"
+                onClick={() => sendNotification(account, address)}
+              >
+                Invite
+              </EPNS>
+              <EPNS
+                className="launch-receiver hover-scale"
+                onClick={() => launch(address)}
+              >
+                Chat
+              </EPNS>
+            </>
+          );
+        })}
+      </Container>
+      <br />
+      <br />
+      <Container>
+        <div>Tagged Friends List</div>
+        {taggedFriendsList ? null : <div>No Tags yet</div>}
+        {taggedFriendsList?.map((address) => {
+          return (
+            <>
+              <h1>{address}</h1>
+              <EPNS
+                className="launch-receiver hover-scale"
+                onClick={() => sendNotification(address)}
+              >
+                Invite
+              </EPNS>
+              <EPNS
+                className="launch-receiver hover-scale"
+                onClick={() => launch(address)}
+              >
+                Chat
+              </EPNS>
+            </>
+          );
+        })}
+      </Container>
+    </>
   );
 };
 
