@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 // import { Subscribe } from "../components/OptInChannel";
-import styled from "styled-components"
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Header from "../assests/Header.png";
+import "./style.css";
 
 import { config } from "../config/config";
 import {
@@ -18,14 +20,21 @@ import "reactjs-popup/dist/index.css";
 import Web3 from "web3";
 
 const Leaderboard = styled.div`
-display:inline-block;
-justify-content: space-around; 
-`
+  display: inline-block;
+  justify-content: space-around;
+`;
 
 const Text = styled.h1`
-display:inline-block;
-margin: 10px;
-`
+  display: inline-block;
+  margin: 10px;
+`;
+
+const Container = styled.div`
+  background: linear-gradient(86.65deg, #efefef 48.22%, #f5e1f1 106.12%);
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 100px 0;
+`;
 
 const MomentsCreation = () => {
   const navigate = useNavigate();
@@ -172,25 +181,32 @@ const MomentsCreation = () => {
   };
 
   return (
-    <>
-      <h1>Create Moments</h1>
+    <Container>
       <>
+        <img src={Header} width="100%" />
+        <h1 className="heading">Own your Moments</h1>
+        <p className="heading">
+          Let your experience live on the blockchain by sharing your best
+          moments at ETH Online and start owning them.
+        </p>
+
         <>
-          <form>
-            <h2>Title</h2>
+          <form >
+            <h2 className="heading">Title</h2>
             <input
               type="text"
-              placeholder="Whats the Title"
+              placeholder="Add a cool Title"
               value={momentsData.title}
+              className="input"
               onChange={(e) => {
                 setMomentsData({ ...momentsData, title: e.target.value });
               }}
             />
-            <h2>Description</h2>
+            <h2 className="heading">Description</h2>
             <input
               type="text"
-              placeholder="whats the moment About"
-              className="input"
+              placeholder="Add some lines to remember this moment"
+              className="input-description"
               value={momentsData.description}
               onChange={(e) => {
                 setMomentsData({
@@ -199,11 +215,11 @@ const MomentsCreation = () => {
                 });
               }}
             ></input>
-            <h2>ETH Address (Tag Your Friends)</h2>
+            <h2 className="heading">ETH Address (Tag Your Friends)</h2>
             <input
               multiple
               type="text"
-              placeholder="weed.eth, lsd.dao, coke.nft"
+              placeholder="tag yourself and your friends"
               className="input"
               value={walletAddresses}
               onChange={(e) => {
@@ -211,21 +227,24 @@ const MomentsCreation = () => {
                 setWalletAddresses(e.target.value);
               }}
             ></input>
-            <p>Ex. test.eth, lsd.dao etc. (seprated by comma)</p>
+            <p className="heading">Ex. test.eth, lsd.dao etc. (seprated by comma)</p>
 
             <input
               type="file"
               id="myFile"
               name="filename"
+              className="upload"
               onChange={(e) => retrieveFile(e, setFile)}
             />
             <br />
           </form>
-          <button
+          <button 
+          className="mint"
             onClick={() => {
               setPopup(true);
               setError(false);
               setSuccess(false);
+              
             }}
             style={{
               pointerEvents: popup ? "none" : null,
@@ -237,7 +256,7 @@ const MomentsCreation = () => {
           {minting ? <div>Minting...</div> : null}
           {Error ? <div>Got some Error...Please try again</div> : null}
           {success ? (
-            <div>
+            <div              >
               Successfully minted!
               <a
                 target={"_blank"}
@@ -248,100 +267,104 @@ const MomentsCreation = () => {
             </div>
           ) : null}
         </>
-      </>
 
-      {/* PopUp to conifrm the NFTID's */}
+        {/* PopUp to conifrm the NFTID's */}
 
-      {popup ? (
-        <div>
-          <div className="box-third">
-            <div onClick={() => setPopup(false)}>Close</div>
+        {popup ? (
+          <div>
+            <div className="box-third">
+              <div onClick={() => setPopup(false)}>Close</div>
 
-            <div className="title">
-              Please Confirm the ETH Address Before Minting
-            </div>
-
-            {validTicketIds}
-
-            {invalidTicketIds.length > 0 ? (
-              <>
-                <div className="invalid">
-                  Invalid ETH Address (Please input again)
-                </div>
-                <div className="yy">{invalidTicketIds}</div>
-              </>
-            ) : null}
-
-            <button
-              className="mintmoment"
-              disabled={
-                invalidTicketIds.length > 0 || minting || success ? true : false
-              }
-              onClick={() =>
-                mintAMoment(
-                  file,
-                  AccessToken,
-                  momentsData,
-                  setNftTypeId,
-                  setError,
-                  setMinting,
-                  setSuccess,
-                  navigate
-                )
-              }
-            >
-              {minting ? <span>Minting...</span> : <span>Mint My Moment</span>}
-            </button>
-
-            {minting ? (
-              <div style={{ color: "blacl" }}>
-                Please have patience...it's minting...
+              <div className="title">
+                Please Confirm the ETH Address Before Minting
               </div>
-            ) : null}
 
-            {success ? (
-              <>
-                <div style={{ color: "black" }}>Successfully minted!!</div>
-                {nftTypeId ? (
-                  <div>
-                    <a
-                      href={`${config.dgAppBaseUrl}/creation/${nftTypeId}`}
-                      target={"_blank"}
-                      style={{ color: "black" }}
-                    >
-                      View your moment here -
-                    </a>
+              {validTicketIds}
+
+              {invalidTicketIds.length > 0 ? (
+                <>
+                  <div className="invalid">
+                    Invalid ETH Address (Please input again)
                   </div>
-                ) : null}
-              </>
-            ) : null}
+                  <div className="yy">{invalidTicketIds}</div>
+                </>
+              ) : null}
 
-            {Error ? (
-              <div style={{ color: "black" }}>Got some Error!!</div>
-            ) : null}
+              <button
+                className="mint"
+                disabled={
+                  invalidTicketIds.length > 0 || minting || success
+                    ? true
+                    : false
+                }
+                onClick={() =>
+                  mintAMoment(
+                    file,
+                    AccessToken,
+                    momentsData,
+                    setNftTypeId,
+                    setError,
+                    setMinting,
+                    setSuccess,
+                    navigate
+                  )
+                }
+              >
+                {minting ? (
+                  <span>Minting...</span>
+                ) : (
+                  <span>Mint Moment</span>
+                )}
+              </button>
+
+              {minting ? (
+                <div style={{ color: "blacl" }}>
+                  Please have patience...it's minting...
+                </div>
+              ) : null}
+
+              {success ? (
+                <>
+                  <div style={{ color: "black" }}>Successfully minted!!</div>
+                  {nftTypeId ? (
+                    <div>
+                      <a
+                        href={`${config.dgAppBaseUrl}/creation/${nftTypeId}`}
+                        target={"_blank"}
+                        style={{ color: "black" }}
+                      >
+                        View your moment here -
+                      </a>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+
+              {Error ? (
+                <div style={{ color: "black" }}>Got some Error!!</div>
+              ) : null}
+            </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
 
-      <a href="/dynamic">
-        <button className="launch-receiver hover-scale">
-          {" "}
-          View your Connections
-        </button>
-      </a>
+        {/* <a href="/dynamic">
+          <button className="launch-receiver hover-scale" >
+            {" "}
+            View your Connections
+          </button>
+        </a> */}
 
-
-      <>
-      <Leaderboard>
-        <Text>Rank</Text>
-        <Text>Creator</Text>
-        <Text>Moments </Text>
-        <Text>Moments Captured</Text>
-        <Text>Moments Tagged</Text>
-      </Leaderboard>
-      
+        {/* <>
+          <Leaderboard>
+            <Text>Rank</Text>
+            <Text>Creator</Text>
+            <Text>Moments </Text>
+            <Text>Moments Captured</Text>
+            <Text>Moments Tagged</Text>
+          </Leaderboard>
+        </> */}
       </>
-    </>
+    </Container>
   );
 };
 
