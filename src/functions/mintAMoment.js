@@ -1,7 +1,7 @@
 import { config } from "../config/config";
 import axios from "axios";
 import { uploadFile } from "./creations";
-import { sendTaggedNotification } from "../components/TaggedNotification";
+import { sendTaggedNotification } from "../Components/TaggedNotification";
 
 export const getAccessToken = async (setAccessToken) => {
   try {

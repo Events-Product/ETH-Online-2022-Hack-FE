@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
+import {
+  Launcher,
+  Window,
+  useLaunch,
+  useIsOpen,
+  Intercom,
+} from "@relaycc/receiver";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Routes, Route, Link } from "react-router-dom";
-import MomentsCreation from "./pages/MomentsCreation";
-import Chatbox from "./components/Chatbox";
+import MomentsCreation from "./Pages/MomentsCreation";
+import Chatbox from "./Components/Chatbox";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Header from "./assests/Header.png";
 // import {Subscribe} from "./Components/OptInChannel"
 
 function App() {
@@ -55,30 +62,29 @@ function DynamicExample() {
   const { address } = useAccount();
 
   return (
-    <div className="full-flex-centered">
-      <h1 className="header">{address}</h1>
-
+    <div className="box">
+      <img src={Header} width="100%" />
+      <div className="wallet">
       <ConnectButton
         accountStatus="address"
         showBalance={false}
         chainStatus="none"
       ></ConnectButton>
+      </div>
 
-      <h1>Chat with your Friends whom you have capured Moments</h1>
       <Chatbox account={address} />
-      <button
+      <div className="chat">
+      <Intercom>
+        <Window />
+      </Intercom>
+      </div>
+      {/* <Window /> */}
+      {/* <button
           className="launch-receiver hover-scale"
       
         >
           OPT In
-        </button>
-      {/* <button
-        className="launch-receiver hover-scale"
-        onClick={() => launch("0x0cb27e883E207905AD2A94F9B6eF0C7A99223C37")}
-      >
-        Kraznik.eth
-      </button> */}
-      <Window />
+        </button> */}
     </div>
   );
 }

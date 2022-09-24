@@ -6,16 +6,24 @@ import { config } from "../config/config";
 const Container = styled.div`
   display: grid;
   justify-content: center;
+  border:1px solid black;
+  border-radius:20px
+  width: 80vw;
+  margin: 0 auto;
 `;
 const LeadCont = styled.div`
   display: inline-block;
-  justify-items: space-around;
+  justify-items: space-between;
   width: 80vw;
+  border-bottom: 1px solid black;
+
 `;
 
 const Text = styled.h1`
   display: inline-block;
+  justify-items: space-around;
   margin: 10px;
+  font-size:24px;
   &:hover {
     cursor: pointer;
   }
@@ -23,6 +31,8 @@ const Text = styled.h1`
 const Text1 = styled.div`
   display: inline-block;
   margin: 10px;
+  font-size:24px;
+  color:grey;
 `;
 
 const Leaderboard = () => {
@@ -65,7 +75,7 @@ const Leaderboard = () => {
     return (
       <LeadCont>
         <Text1>{rank}</Text1>
-        <Text1>{item.address}</Text1>
+        <Text1>{item.address.slice(0,7)}</Text1>
         <Text1>{item.count}</Text1>
         <Text1>{item.creations}</Text1>
         <Text1>{item.tagged}</Text1>

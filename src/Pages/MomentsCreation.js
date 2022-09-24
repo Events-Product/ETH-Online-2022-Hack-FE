@@ -18,7 +18,7 @@ import { toChecksumAddress } from "ethereum-checksum-address";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import Web3 from "web3";
-import Leaderboard from "../components/Leaderboard";
+import Leaderboard from "../Components/Leaderboard";
 
 const Container = styled.div`
   background: linear-gradient(86.65deg, #efefef 48.22%, #f5e1f1 106.12%);
@@ -263,12 +263,12 @@ const MomentsCreation = () => {
         {/* PopUp to conifrm the NFTID's */}
 
         {popup ? (
-          <div>
+          <div className="popup">
             <div className="box-third">
               <div onClick={() => setPopup(false)}>Close</div>
 
-              <div className="title">
-                Please Confirm the ETH Address Before Minting
+              <div className="heading">
+                <h1> Please Confirm the ETH Address Before Minting</h1>
               </div>
 
               {validTicketIds}
@@ -278,7 +278,7 @@ const MomentsCreation = () => {
                   <div className="invalid">
                     Invalid ETH Address (Please input again)
                   </div>
-                  <div className="yy">{invalidTicketIds}</div>
+                  <div className="wallet">{invalidTicketIds}</div>
                 </>
               ) : null}
 

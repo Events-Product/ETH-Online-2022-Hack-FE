@@ -2,15 +2,73 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Launcher, Window, useLaunch, useIsOpen } from "@relaycc/receiver";
 import { sendNotification } from "./InviteNotification";
-import { sendTaggedNotification } from "./TaggedNotification";
+import "./style.css";
+import Header from "../assests/Header.png"
+// import { sendTaggedNotification } from "../Components/TaggedNotification";
 import axios from "axios";
 const Container = styled.div`
-  display: inline-block;
-  width: 400px;
-  background: red;
+background: linear-gradient(86.65deg, #efefef 48.22%, #f5e1f1 106.12%);
+padding: 0 0 100px 0 ;
+
+@media (max-width: 800px) {
+padding: 0 0 1000px 0;
+}
+
 `;
+
+const Address = styled.div`
+display:inline-block;
+max-width:100px;
+margin: 20px;
+`
 const EPNS = styled.button`
-  display: flex;
+  display: inline-block;
+  align-items: center;
+  background-color: black;
+  height: 48px;
+  color: white;
+  margin: 20px;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  border-radius: 50px;
+
+  @media (max-width: 800px) {
+
+  }
+
+`;
+
+const EPNS2 = styled.button`
+  display: inline-block;
+  margin: 20px;
+
+  background-color: black;
+  height: 48px;
+  color: white;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  border-radius: 50px;
+
+  @media (max-width: 800px) {
+
+  }
+
+`;
+
+const Section = styled.div`
+  background: linear-gradient(86.65deg, #efefef 48.22%, #f5e1f1 106.12%);
+  border: 1px solid black;
+  border-radius: 20px;
+  max-width: 700px;
+  display:flex;
+  margin: 20px auto;
+
+  @media (max-width: 800px) {
+    max-width:400px;
+    margin: 0;
+  }
 `;
 
 const Chatbox = ({ account }) => {
@@ -51,50 +109,52 @@ const Chatbox = ({ account }) => {
 
   return (
     <>
+
       <Container>
-        <div>Friends List</div>
+        <h1 className="title">Friends List</h1>
         {friendsList ? null : <div>Go on and mint with some :D</div>}
         {friendsList?.map((address) => {
           return (
             <>
-              <h1>{address}</h1>
-              <EPNS
-                className="launch-receiver hover-scale"
-                onClick={() => sendNotification(account, address)}
-              >
-                Invite
-              </EPNS>
-              <EPNS
-                className="launch-receiver hover-scale"
-                onClick={() => launch(address)}
-              >
-                Chat
-              </EPNS>
+              <Section>
+                <Address>{address.slice(0,7)}</Address>
+                <EPNS
+
+                  onClick={() => sendNotification(account, address)}
+                >
+                  Invite
+                </EPNS>
+                <EPNS2
+                  onClick={() => launch(address)}
+                >
+                  Chat
+                </EPNS2>
+              </Section>
             </>
           );
         })}
-      </Container>
+
       <br />
       <br />
-      <Container>
-        <div>Tagged Friends List</div>
+
+        <h2 className="title">Tagged Friends List</h2>
         {taggedFriendsList ? null : <div>No Tags yet</div>}
         {taggedFriendsList?.map((address) => {
           return (
             <>
-              <h1>{address}</h1>
-              <EPNS
-                className="launch-receiver hover-scale"
-                onClick={() => sendNotification(address)}
-              >
-                Invite
-              </EPNS>
-              <EPNS
-                className="launch-receiver hover-scale"
-                onClick={() => launch(address)}
-              >
-                Chat
-              </EPNS>
+              <Section>
+              <Address>{address.slice(0,7)}</Address>
+                <EPNS
+                  onClick={() => sendNotification(address)}
+                >
+                  Invite
+                </EPNS>
+                <EPNS2
+                  onClick={() => launch(address)}
+                >
+                  Chat
+                </EPNS2>
+              </Section>
             </>
           );
         })}

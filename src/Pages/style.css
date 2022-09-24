@@ -45,6 +45,10 @@
     display: flex;
     justify-content: center;
   }
+
+  .popup{
+    width: 100px;
+  }
 }
 
 .heading {
@@ -72,5 +76,23 @@
 .upload{
     margin: 0 auto;
     display: flex;
+
+}
+
+.popup{
+    border: 1px solid black;
+    display: flex;
+    margin: 0 auto;
+    width: 400px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.wallet{
+    background-color: red;
+    border-radius: 20px;
+    text-align: center;
+    width: 150px;
+    margin: 10px auto;
 
 }
