@@ -9,7 +9,7 @@ const Container = styled.div`
   border:1px solid black;
   border-radius:20px
   width: 80vw;
-  margin: 0 auto;
+  margin: 100px auto;
 `;
 
 const LeadCont = styled.div`
@@ -28,12 +28,21 @@ const Text = styled.h1`
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 800px) {
+    margin: 5px; 
+    font-size:12px
+  }
 `;
 const Text1 = styled.div`
   display: inline-block;
   margin: 10px;
   font-size: 24px;
   color: grey;
+  @media (max-width: 800px) {
+    margin: 5px; 
+    font-size:12px
+  }
 `;
 
 const Leaderboard = () => {
@@ -95,8 +104,8 @@ const Leaderboard = () => {
           <Text>Rank</Text>
           <Text>Creator</Text>
           <Text onClick={fetchDataOnCount}>Moments </Text>
-          <Text onClick={fetchOnCreation}>MomentsCaptured</Text>
-          <Text onClick={fetchOnTagged}>MomentsTagged</Text>
+          <Text onClick={fetchOnCreation}>Captured</Text>
+          <Text onClick={fetchOnTagged}>Tagged</Text>
         </LeadCont>
         {listOnCount}
       </Container>

@@ -14,12 +14,14 @@ import Chatbox from "./Components/Chatbox";
 import axios from "axios";
 import { useAccount } from "wagmi";
 import Header from "./assests/Header.png";
+import Hack from "./Pages/Hack";
 // import {Subscribe} from "./Components/OptInChannel"
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Moments />} />
+      <Route path="/" element={<Hack />} />
+      <Route path="moments" element={<Moments />} />
       <Route path="dynamic" element={<DynamicExample />} />
     </Routes>
   );
@@ -65,18 +67,18 @@ function DynamicExample() {
     <div className="box">
       <img src={Header} width="100%" />
       <div className="wallet">
-      <ConnectButton
-        accountStatus="address"
-        showBalance={false}
-        chainStatus="none"
-      ></ConnectButton>
+        <ConnectButton
+          accountStatus="address"
+          showBalance={false}
+          chainStatus="none"
+        ></ConnectButton>
       </div>
 
       <Chatbox account={address} />
       <div className="chat">
-      <Intercom>
-        <Window />
-      </Intercom>
+        <Intercom>
+          <Window />
+        </Intercom>
       </div>
       {/* <Window /> */}
       {/* <button
