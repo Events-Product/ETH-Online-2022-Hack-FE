@@ -31,6 +31,7 @@ const EPNS = styled.button`
   line-height: 21px;
   text-align: center;
   border-radius: 50px;
+  width:100px;
 
   @media (max-width: 800px) {
   }
@@ -47,6 +48,7 @@ const EPNS2 = styled.button`
   line-height: 21px;
   text-align: center;
   border-radius: 50px;
+  width:100px;
 
   @media (max-width: 800px) {
   }
